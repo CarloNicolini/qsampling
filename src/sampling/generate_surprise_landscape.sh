@@ -3,7 +3,8 @@ export n=5
 export k=40
 rm -f sampled*
 export program_name="run_surpr_landscape.m"
-rm $program_name
+rm -f $program_name
+echo "[INFO] Starting MATLAB instance to generate samples of partition"
 echo "function run_surpr_landscape(n)" >> ${program_name}
 echo "addpath('~/workspace/communityalg');" >> ${program_name}
 #echo "A=load('../../data/karate.adj');" >> ${program_name}
@@ -16,7 +17,7 @@ echo "dlmwrite('../../data/ring_clique_n${n}_k${k}.adj',A,'delimiter',' ');" >> 
 echo " exit;" >> ${program_name}
 
 # Run matlab on 100 instances
-matlab -nojvm -nodisplay -r "run_surpr_landscape(1000)"
+matlab -nojvm -nodisplay -r "run_surpr_landscape(100);"
 
 # Collect all the data in the sampled_final.out
 rm -f sampled_final*
@@ -24,7 +25,7 @@ for f in `ls sampled*.out`
 do
 	cat $f >> sampled_final
 	echo "-2.000000,[0.0]" >> sampled_final
-	rm -f $f
+	#rm -f $f
 done
 
 # Filter out the data
@@ -32,9 +33,9 @@ python filter_samples.py -u -g -f filtered_sampled_rc_n${n}_k${k}_surprise.out s
 
 ##########################################
 # Now do the same for modularity
-# python anneal.py -f temp -n 100 "../../data/ring_clique_n${n}_k${k}.adj"
-# python filter_samples.py -u -g -f filtered_sampled_rc_n${n}_k${k}_modularity.out temp
-# rm temp
+python anneal.py -f temp -n 100 "../../data/ring_clique_n${n}_k${k}.adj"
+python filter_samples.py -u -g -f filtered_sampled_rc_n${n}_k${k}_modularity.out temp
+rm temp
 
 # Finally should run Matlab and call
 #create_embedding('filtered_sampled_rc_n6_k20.out');
