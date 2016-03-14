@@ -20,7 +20,7 @@ grid('on');
 hold('all');
 zi=griddata(x,y,z,xi,yi);
 surfc(xi,yi,zi,'Parent',regular); %can use mesh, meshc, surf, surfc surfl
-plot3(x,y,z,'yo');
+plot3(x,y,z,'ro');
 plot3(x,y,ones(size(x))*min(z(:)),'r.');
 title(figtitle);
 %set(regular,'XTickLabel',[]);

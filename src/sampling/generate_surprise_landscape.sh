@@ -7,8 +7,9 @@ rm -f $program_name
 echo "[INFO] Starting MATLAB instance to generate samples of partition"
 echo "function run_surpr_landscape(n)" >> ${program_name}
 echo "addpath('~/workspace/communityalg');" >> ${program_name}
-#echo "A=load('../../data/karate.adj');" >> ${program_name}
-echo "A=ring_of_custom_cliques(repmat(${n},1,${k}));" >> ${program_name}
+#echo "A=ring_of_custom_cliques(repmat(${n},1,${k}));" >> ${program_name}
+echo "A=load('~/workspace/BCT/GroupAverage_rsfMRI_matrix.mat');" >> ${program_name}
+echo "A=A.GroupAverage_rsfMRI');" >> ${program_name}
 echo "parfor i=1:n" >> ${program_name}
 echo	"[memb,q] = paco_mx(A,'quality',0);">> ${program_name}
 #echo	"system(['mv sampled.out sampled' num2str(i) '.out']);">> ${program_name}
