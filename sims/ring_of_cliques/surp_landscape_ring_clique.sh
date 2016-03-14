@@ -46,7 +46,7 @@ echo "dlmwrite('ring_clique_n${n}_k${k}.adj',A,'delimiter',' ');" >> ${program_n
 
 # Run matlab on 100 instances
 export trialstring=`echo "run_surpr_landscape(${trials});exit;"`
-matlab -nodesktop -nosplash -r `echo ${trialstring}`
+matlab-cli -r `echo ${trialstring}`
 
 # # Collect all the data in the sampled_final.out
 echo "[INFO] Merging all temporary solutions "
