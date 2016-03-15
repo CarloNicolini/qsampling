@@ -20,7 +20,7 @@ grid('on');
 hold('all');
 zi=griddata(x,y,z,xi,yi);
 meshc(xi,yi,zi,'Parent',regular); %can use mesh, meshc, surf, surfc surfl
-plot3(x,y,z,'ro');
-plot3(x,y,ones(size(x))*min(z(:)),'r.');
+plot3(x,y,z,'ro','MarkerSize',1);
+%plot3(x,y,ones(size(x))*min(z(:)),'r.');
 title(figtitle,'Interpreter','none'); % to avoid interpretation
 hold off;
