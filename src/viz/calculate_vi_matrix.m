@@ -28,7 +28,7 @@ for i = [1:number_of_partitions]
              
         vi = -1/n*vi;
         vi_matrix(i,j) = vi;
-        vi_matrix(j,i) = vi;                
+        vi_matrix(j,i) = vi;
     end
 end
 
