@@ -20,7 +20,7 @@ fi
 export n=${1}
 export k=${2}
 export trials=${3}
-export datapath=`echo ${4}/RC_n${n}_k${k}_trials${trials}`
+export datapath=`echo ${4}/RC_n${n}_k${k}_trials${trials}_surprise`
 echo "[INFO] Generating Surprise landscape file for ring of cliques n=$n k=$k trials=$trials datapath=$datapath"
 # Create the Matlab program to generate Surprise landscape files sampled{1,2,...n}.out
 # First of all create a folder 
@@ -40,13 +40,13 @@ echo "addpath('~/workspace/paco/build');" >> ${program_name}
 echo "A=ring_of_custom_cliques(repmat(${n},1,${k}));" >> ${program_name}
 echo "parpool;" >> ${program_name}
 echo "parfor i=1:n" >> ${program_name}
-echo	"[memb,q] = paco_mx(A,'quality',0,'nrep',5);">> ${program_name}
+echo	"[memb,q] = paco_mx(A,'quality',0,'nrep',50);">> ${program_name}
 echo "end" >> ${program_name}
 echo "dlmwrite('ring_clique_n${n}_k${k}.adj',A,'delimiter',' ');" >> ${program_name}
 
 # Run matlab on 100 instances
 export trialstring=`echo "run_surpr_landscape(${trials});exit;"`
-matlab-cli -r `echo ${trialstring}`
+matlab -nodesktop -nodisplay -nosplash -r `echo ${trialstring}`
 
 # # Collect all the data in the sampled_final.out
 echo "[INFO] Merging all temporary solutions "

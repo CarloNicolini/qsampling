@@ -441,8 +441,7 @@ class Simulation:
             # we accept!
             return True
         else:
-            acceptance_probability = math.exp
-            ((Q_new-Q_old)*beta)
+            acceptance_probability = math.exp((Q_new-Q_old)*beta)
             
             return (random.random_sample() < acceptance_probability)
              
